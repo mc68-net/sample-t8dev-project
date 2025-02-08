@@ -28,6 +28,16 @@ directory above this one.)
     pae -c t8dev                                # if not already created
     pae -a t8dev && pip install -U ../t8dev
 
+### Running
+
+Once your virtualenv is activated, run `./Test` to test some typical t8dev
+actions. Note that you will need a C compiler and a few common libraries to
+build a couple of development tools; if these dependencies are missing
+t8dev should inform you of what to install.
+
+After the first run it will not rebuild some things that have not changed;
+to do a fully clean build first `rm -rf .build/`.
+
 
 <!-------------------------------------------------------------------->
 [0cjs/8bitdev]: https://github.com/0cjs/8bitdev

@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+trap 'ec=$?; echo 1>&2 "ERROR: ec=$ec line=$LINENO cmd=$BASH_COMMAND";
+      exit $ec;' ERR
+
+#   The t8dev program relies on T8_PROJDIR being set to point to the root
+#   directory of the project using t8dev. (This is because it downloads and
+#   builds things to the .build/ directory in that project dir.) You will
+#   also want to ensure that your .gitignore file ignores the .build/
+#   directory under $T8_PROJDIR.
+#
+#   This code sets T8_PROJDIR to the directory in which this Test script
+#   resides.
+#
+export T8_PROJDIR=$(cd "$(dirname "$0")" && pwd -P)
+
+#   Unlike projects that have their own local virtualenv, we do not need
+#   the t8setup.bash script, since that exists mainly to set up the
+#   project-local virtualenv. (It also deals with fetching the Git
+#   submodules for t8dev and r8format source, if necessary.)
+
+#   Install the minimal toolset to assemble an example program.
+#
+#   If you want to use these tools directly from the command line you'll
+#   need to add $T8_PROJDIR/.build/tool/bin/ to your $PATH. But the `t8dev`
+#   program will find them without you doing this.
+#
+t8dev toolset asl
