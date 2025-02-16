@@ -1,34 +1,40 @@
-sample-novirt-8bitdev
-=====================
+sample-t8dev-project
+====================
 
-This is an example of an 8-bit development project using [t8dev] without a
-local virtualenv, i.e., t8dev is installed in the pre-existing environment
-(whether that be the system environment or a virtualenv started before
-anything here is run).
+This is an example of an 8-bit development project using [t8dev].
 
-While this is a configuration we (occasionally) test, more typically,
-developers would want to set up a virtualenv specifically for the project.
-Typically a setup script, or at least instructions in a README, will set up
-the virtualenv and install t8dev and other dependencies in it.
-[`pactivate`] can be a help with this.
+You will need the Python t8dev package available in your environment,
+which may be done in one of three ways:
 
-For development on `t8dev` itself, or just to use `main` branch code, it is
-most convenient to add [the t8dev repo][t8dev] as a submodule to your 8-bit
-development environment and install it in the local virtualenv as editable
-(e.g., `-e ./t8dev` in `requirements.txt`). [0cjs/8bitdev] is an example of
-this.
+1. Simply type `source ./pactivate`, which will create (if necessary) and
+   activate a Python virtual environment local to this project directory
+   ([`pactivate`] is what makes this trivial.)
 
-### Setup
+2. Set up and activate a Python virtual environment yourself, and install
+   t8dev in it, typically using `pip -r requirements.txt` after the
+   virtualenv is activated. One example of this is to use pactivate's
+   `pae` command:
 
-One method of testing this project is to use [`pactivate`]'s `pae` to set
-up an "external" virtualenv, or use one already set up this way. (The
-following assumes the version of t8dev you want to use is cloned in the
-directory above this one.)
+        pae -c t8dev    # if not already created
+        pae -a t8dev && pip install -r requirements.txt
 
-    pae -c t8dev                                # if not already created
-    pae -a t8dev && pip install -U ../t8dev
+3. Install t8dev into your system/user Python environment using
+  `pip -r requirements.txt`.
 
-### Running
+The first configuration is the one that we suggust using because it's the
+simplest setup and the best isolated. Generally this configuration will
+have the `Test` file itself `source ./pactivate` so it works without any
+setup by the user.
+
+If you're doing development on `t8dev` itself, or just want to use `main`
+branch code, it is most convenient to add [the t8dev repo][t8dev] as a
+submodule to your 8-bit development environment and install it in the local
+virtualenv as editable (e.g., `-e ./t8dev` in `requirements.txt`).
+[0cjs/8bitdev] is an example of this.
+
+
+Running
+-------
 
 Once your virtualenv is activated, run `./Test` to test some typical t8dev
 actions. Note that you will need a C compiler and a few common libraries to
@@ -42,7 +48,9 @@ Reading [`Test`] will explain further details about how to use t8dev with
 examples of both unit testing assembly language modules in the 8080
 simulator and building a CP/M program and testing that in a CP/M emulator.
 
-### Support
+
+Support
+-------
 
 If you have any questions or comments, you may file an issue on GitHub or
 directly contact the author, Curt J. Sampson, through any of the following

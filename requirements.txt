@@ -1,0 +1,5 @@
+#   • This requirements.txt is used by `source ./pactivate` if
+#     you use a project-local Python virtual environment here.
+#   • It may be also be used with `pip -r requirements.txt` if
+#     you are setting up your own virtualenv or not using one.
+t8dev >= 0.3.0
