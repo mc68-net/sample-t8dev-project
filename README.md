@@ -36,8 +36,8 @@ virtualenv as editable (e.g., `-e ./t8dev` in `requirements.txt`).
 Running
 -------
 
-Once your virtualenv is activated, run `./Test` to test some typical t8dev
-actions. Note that you will need a C compiler and a few common libraries to
+Once your virtualenv is activated, run `./Test` to demonstrate some typical
+t8dev actions. You will need a C compiler and a few common libraries to
 build a couple of development tools; if these dependencies are missing
 t8dev should inform you of what to install.
 
@@ -46,7 +46,8 @@ to do a fully clean build first `rm -rf .build/`.
 
 Reading [`Test`] will explain further details about how to use t8dev with
 examples of both unit testing assembly language modules in the 8080
-simulator and building a CP/M program and testing that in a CP/M emulator.
+simulator using pytest and building a CP/M program and testing that in a
+CP/M emulator.
 
 
 Support
@@ -66,7 +67,7 @@ means (in order of preference):
 [pactivate]: https://github.com/cynic-net/pactivate
 [t8dev]: https://github.com/mc68-net/t8dev
 
-[Test]: ./Test
+[`Test`]: ./Test
 
 [Discord]: https://discord.com/
 [Google Chat]: https://chat.google.com
