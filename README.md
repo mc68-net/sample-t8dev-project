@@ -38,8 +38,28 @@ t8dev should inform you of what to install.
 After the first run it will not rebuild some things that have not changed;
 to do a fully clean build first `rm -rf .build/`.
 
+Reading [`Test`] will explain further details about how to use t8dev with
+examples of both unit testing assembly language modules in the 8080
+simulator and building a CP/M program and testing that in a CP/M emulator.
+
+### Support
+
+If you have any questions or comments, you may file an issue on GitHub or
+directly contact the author, Curt J. Sampson, through any of the following
+means (in order of preference):
+- [Telegram]: `@cjs_cynic`
+- [Discord]: PM to `@0cjs`
+- [Google Chat] or e-mail: `cjs@cynic.net`
+
+
 
 <!-------------------------------------------------------------------->
 [0cjs/8bitdev]: https://github.com/0cjs/8bitdev
 [pactivate]: https://github.com/cynic-net/pactivate
 [t8dev]: https://github.com/mc68-net/t8dev
+
+[Test]: ./Test
+
+[Discord]: https://discord.com/
+[Google Chat]: https://chat.google.com
+[Telegram]: https://telegram.org/
