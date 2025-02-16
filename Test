@@ -40,3 +40,29 @@ t8dev asl t8dev
 #   useful for debugging.)
 t8dev asl auto src/
 pytest
+
+#   By convention exe/ is where we keep complete programs that use the
+#   modules under src/. This assembles those to .build/obj/exe/.
+#   If you have subdirs or non-assembly files here, you will want to
+#   use a more sophisticated shell glob or `find` command.
+t8dev asl asm exe/*
+
+#   The tools installed by `t8dev toolset` commands are placed under
+#   $T8_PROJDIR/.build/tool/bin/. Because this is not known to the Python
+#   virtual environment, and we're not calling them through t8dev, we
+#   need to add these to the path ourselves.
+PATH="$T8_PROJDIR/.build/tool/bin:$PATH"
+
+#   This assumes that `cpmhello.p` has been assembled with the correct
+#   start address of $100, creating a binary file with all the assembled
+#   code from its start address.
+exebuild="$T8_PROJDIR/.build/obj/exe"
+p2bin -q "$exebuild"/cpmhello.p "$exebuild"/cpmhello.com
+
+#   Now we install the RunCPM emulator and use it to run cpmhello.com.
+#   The `--autorun` flag to `t8dev emulator runcpm` makes it, on boot,
+#   immediately run the .COM file given as the argument. (Otherwise
+#   it will simply be loaded into the emulator and you will be left
+#   in interactive mode.)
+t8dev toolset RunCPM
+t8dev emulator runcpm --autorun $exebuild/cpmhello.com

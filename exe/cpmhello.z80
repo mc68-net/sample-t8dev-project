@@ -1,0 +1,17 @@
+;   CP/M "Hello, world" program.
+;   This uses the unit-tested module from src/hello.i80.
+
+;   Though the one module we include is 8080-compatible, we choose to use
+;   Z80 here just to demonstrate that you can use 8080 modules in Z80 programs.
+            cpu  z80
+            relaxed on          ; allow $NN hex constants
+
+;   The module does not include the BDOS definition because that's machine-
+;   specific; the unit tests (and perhaps other machines) use a different
+;   definition than the target of this program does.
+BDOS        equ  $0005
+
+;   Since we're just running it directly, there's no need to call the
+;   subroutine; we can just include at the start of the program.
+            org  $100
+            include src/cpmhello.i80
