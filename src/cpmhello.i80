@@ -1,0 +1,27 @@
+;   CP/M "Hello, world" module.
+
+;   We do *not* include a `cpu 8080` declaration here because
+;   system-specific builds of programs that use this module may want to
+;   build for a different but backwards-compatible CPU, such as Z80.
+
+;   For the same reason we don't use `org` in modules; the system-specific
+;   build of a program that uses the module will take care of locating the
+;   module where it needs to be by whatever it does before doing an
+;   `include src/cpmhello.i80`.
+
+;   We also do not include the typical `BDOS equ $0005` definition; that
+;   allows the unit tests to use a different definition of BDOS suitable
+;   for unit testing, while the final program that includes this file will
+;   set up the above definition (or similar, depending on where the CP/M
+;   system base BOOT is located).
+
+;   Note that this uses $xx hex syntax, requiring `relaxed on` in ASL
+;   (Macroassembler AS), and Z80 mnemonics requiring either `cpu z80`
+;   or, if using `cpu 8080`, `z80syntax exclusive`.
+
+hello       ld   c,9
+            ld   de,message
+            call BDOS
+            jp   0
+
+message db    'Hello, world.',$0D,$0A,'$'

@@ -31,3 +31,12 @@ t8dev toolset asl
 #   Build source code provided by the t8dev `testmc` package. The output
 #   is placed under .buld/obj/testmc/.
 t8dev asl t8dev
+
+#   Build source code modules for unit testing in this repo, by convention
+#   stored under src/. This will find all src/**/*.pt files that include a
+#   `test_rig` or `object_files` declaration and build the source under
+#   test into a matching .build/ptobj/ subdirectory. (That directory
+#   contains the .p ASL output file and also the listing, which can be
+#   useful for debugging.)
+t8dev asl auto src/
+pytest

@@ -1,0 +1,53 @@
+''' This src/cpmtest.pt file is an example of how to unit test an assembly
+    language module, in this case src/cpmtest.i80.
+
+    cpmtest.i80 is, as indicated by the extension, designed to run on any
+    8080 or backwards-compatible CPU (such as a Z80). It does _not_ include
+    various system-specific parameters (see that file for details) allowing
+    the program builds under exe/ and unit tests (in `test_rig` below) to
+    specify these.
+'''
+
+from    testmc.i8080  import  Machine
+
+#   `test_rig` sets up an assembly environment appropriate for the unit
+#   tests and then ``include``s the module that we're testing.
+test_rig = '''
+;   We test on an 8080 CPU, so we prove it works on an 8080 even if the
+;   program we eventually build is targeted to Z80 or whatever.
+        cpu 8080
+        relaxed on              ; allow $NN hex constants
+        z80syntax exclusive     ; life is easier with Z80 syntax everywhere
+
+;   In CP/M, `jp 0` restarts the CCP.
+;   In our test framework, we make it return to the test.
+        org  $0000
+        ret
+
+;   We mock the BDOS call to do nothing because we're not checking output,
+;   just that the parameters for output are set up correctly. The
+;   non-standard location of this will catch errors in modules that are
+;   using $0005 instead of the externally-defined `BDOS`.
+        org $1000
+BDOS    ret
+
+;   We set a non-standard ORG, just to show we can do it,
+;   and then include the source of the unit under test.
+        org  $2000
+        include src/cpmhello.i80
+'''
+
+def test_hello(m, S, R):
+    #   `m` is the test machine; `S` is the symbol table for the assembly
+    #   of `test_rig` above, and `R` is an 8080 Registers object.
+
+    #   We call the `hello` routine with registers C and D set to 0,
+    #   so if they're left unmodified later checks will see that they've
+    #   not been set to the correct values.
+    m.call(S.hello, R(c=0, de=0))
+
+    #   We create a new register set with just the values we want to check,
+    #   and compare it with the current machine registers after the call
+    #   has returned. This comparision will ignore any registers not
+    #   explicitly set in our expected register set.
+    assert R(c=9, de=S.message) == m.regs
