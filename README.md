@@ -8,7 +8,8 @@ which may be done in one of three ways:
 
 1. Simply type `source ./pactivate`, which will create (if necessary) and
    activate a Python virtual environment local to this project directory
-   ([`pactivate`] is what makes this trivial.)
+   ([`pactivate`] downloads and runs `pip` and `virtualenv` to create
+   a virtualenv under `.build/virtualenv/` in the usual way.)
 
 2. Set up and activate a Python virtual environment yourself, and install
    t8dev in it, typically using `pip -r requirements.txt` after the
